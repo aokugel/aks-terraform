@@ -12,6 +12,11 @@ variable "aks_service_principal_client_secret" {
   default = ""
 }
 
+variable "resource_group_name" {
+  default     = ""
+  description = "resource group name"
+}
+
 variable "cluster_name" {
   default = "k8stest"
 }
@@ -42,11 +47,6 @@ variable "resource_group_location" {
 variable "resource_group_name_prefix" {
   default     = "rg"
   description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
-}
-
-variable "resource_group_name" {
-  default     = "openenv-t4ddr"
-  description = "some shit idk."
 }
 
 variable "ssh_public_key" {
