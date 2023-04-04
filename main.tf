@@ -64,3 +64,31 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     client_secret = var.aks_service_principal_client_secret
   }
 }
+
+resource "azurerm_storage_account" "example" {
+  name                     = "djangostoracc12345"
+  resource_group_name      = var.resource_group_name
+  location                 = var.resource_group_location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+resource "azurerm_storage_container" "static" {
+  name                  = "static"
+  storage_account_name  = azurerm_storage_account.example.name
+  container_access_type = "blob"
+}
+
+resource "azurerm_storage_container" "media" {
+  name                  = "media"
+  storage_account_name  = azurerm_storage_account.example.name
+  container_access_type = "blob"
+}
+
+# resource "azurerm_storage_blob" "example" {
+#   name                   = "django-static-files"
+#   storage_account_name   = azurerm_storage_account.example.name
+#   storage_container_name = azurerm_storage_container.example.name
+#   type                   = "Block"
+#   # source                 = "some-local-file.zip"
+# }

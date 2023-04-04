@@ -8,6 +8,7 @@ export KUBECONFIG=./azurek8s
 
 kubectl create namespace django
 kubectl config set-context --current --namespace=django
+kubectl create secret generic azure-blob-secret --from-literal=BLOB_KEY=$(terraform output storage_account_primary_key)
 kubectl apply -f ../django-kubernetes/
 
 helm install ingress-nginx ingress-nginx/ingress-nginx   --create-namespace   \
