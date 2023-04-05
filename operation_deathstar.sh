@@ -33,3 +33,17 @@ token=$(python ../get_token.py $external_ip $1 $2)
 python ../website_article_push.py $external_ip $token
 
 xdg-open http://$external_ip
+
+echo "$(kubectl get ingress blog-ingress --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}") example.com" | sudo tee -a  /etc/hosts
+
+HOST='example.com'
+KEY_FILE='tls.key'
+CERT_FILE='tls.crt'
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj "/CN=${HOST}/O=${HOST}" -addext "subjectAltName = DNS:${HOST}"
+kubectl create secret tls example-com-tls --key ${KEY_FILE} --cert ${CERT_FILE}
+
+#run this command after
+#echo "$(kubectl get ingress blog-ingress --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}") example.com" | sudo tee -a  /etc/hosts
+
+#sudo sed '$d' /etc/hosts
+
