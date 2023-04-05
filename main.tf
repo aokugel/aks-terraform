@@ -1,13 +1,3 @@
-# Generate random resource group name
-# resource "random_pet" "rg_name" {
-#   prefix = var.resource_group_name_prefix
-# }
-
-# resource "azurerm_resource_group" "rg" {
-#   location = var.resource_group_location
-#   name     = var.resource_group_name
-# }
-
 resource "random_id" "log_analytics_workspace_name_suffix" {
   byte_length = 8
 }
@@ -84,11 +74,3 @@ resource "azurerm_storage_container" "media" {
   storage_account_name  = azurerm_storage_account.example.name
   container_access_type = "blob"
 }
-
-# resource "azurerm_storage_blob" "example" {
-#   name                   = "django-static-files"
-#   storage_account_name   = azurerm_storage_account.example.name
-#   storage_container_name = azurerm_storage_container.example.name
-#   type                   = "Block"
-#   # source                 = "some-local-file.zip"
-# }

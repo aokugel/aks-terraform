@@ -47,8 +47,3 @@ output "storage_account_primary_key" {
   value     = azurerm_storage_account.example.primary_access_key
   sensitive = true
 }
-
-
-# output "resource_group_name" {
-#   value = azurerm_resource_group.rg.name
-# }
