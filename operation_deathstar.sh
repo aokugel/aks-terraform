@@ -2,6 +2,7 @@
 
 az login
 
+terraform init
 terraform plan -out main.tfplan
 terraform apply "main.tfplan"
 
@@ -13,6 +14,9 @@ kubectl config set-context --current --namespace=django
 kubectl create secret generic azure-blob-secret --from-literal=BLOB_KEY=$(terraform output storage_account_primary_key)
 kubectl apply -f ../django-kubernetes/
 
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
 helm install ingress-nginx ingress-nginx/ingress-nginx   --create-namespace   \
 --namespace django   --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-load-balancer-health-probe-request-path"=/
 
@@ -36,18 +40,20 @@ python ../website_article_push.py $external_ip $token
 
 xdg-open http://$external_ip
 
-echo "$(kubectl get ingress blog-ingress --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}") example.com" | sudo tee -a  /etc/hosts
+if grep -q django-unchained-k8s.com "/etc/hosts"; then
+  sudo sed -i '$d' /etc/hosts
+fi
 
-HOST='example.com'
+echo "$(kubectl get ingress blog-ingress --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}") django-unchained-k8s.com" | sudo tee -a  /etc/hosts
+
+HOST='django-unchained-k8s.com'
 KEY_FILE='tls.key'
 CERT_FILE='tls.crt'
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj "/CN=${HOST}/O=${HOST}" -addext "subjectAltName = DNS:${HOST}"
-kubectl create secret tls example-com-tls --key ${KEY_FILE} --cert ${CERT_FILE}
+kubectl create secret tls django-unchained-k8s-com-tls --key ${KEY_FILE} --cert ${CERT_FILE}
 
-xdg-open https://example.com
+xdg-open https://django-unchained-k8s.com
 
 #run this command after
-#echo "$(kubectl get ingress blog-ingress --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}") example.com" | sudo tee -a  /etc/hosts
-
 #sudo sed '$d' /etc/hosts
 

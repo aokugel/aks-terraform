@@ -18,11 +18,11 @@ variable "resource_group_name" {
 }
 
 variable "cluster_name" {
-  default = "k8stest"
+  default = "django-unchained-k8s"
 }
 
 variable "dns_prefix" {
-  default = "k8stest"
+  default = "django-unchained-k8s"
 }
 
 # Refer to https://azure.microsoft.com/global-infrastructure/services/?products=monitor for available Log Analytics regions.
