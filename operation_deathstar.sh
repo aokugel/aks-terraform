@@ -1,5 +1,7 @@
 #!/bin/bash
 
+az login
+
 terraform plan -out main.tfplan
 terraform apply "main.tfplan"
 
@@ -41,6 +43,8 @@ KEY_FILE='tls.key'
 CERT_FILE='tls.crt'
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj "/CN=${HOST}/O=${HOST}" -addext "subjectAltName = DNS:${HOST}"
 kubectl create secret tls example-com-tls --key ${KEY_FILE} --cert ${CERT_FILE}
+
+xdg-open https://example.com
 
 #run this command after
 #echo "$(kubectl get ingress blog-ingress --template="{{range .status.loadBalancer.ingress}}{{.ip}}{{end}}") example.com" | sudo tee -a  /etc/hosts
