@@ -54,6 +54,3 @@ kubectl create secret tls django-unchained-k8s-com-tls --key ${KEY_FILE} --cert 
 
 xdg-open https://django-unchained-k8s.com
 
-#run this command after
-#sudo sed '$d' /etc/hosts
-

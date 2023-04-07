@@ -12,6 +12,11 @@ variable "aks_service_principal_client_secret" {
   default = ""
 }
 
+varable "storage_account_name" {
+  description = "The storage account used to provision the blob storage"
+  default = "djangostoracc12345"
+}
+
 variable "resource_group_name" {
   default     = ""
   description = "resource group name"
