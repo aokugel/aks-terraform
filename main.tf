@@ -3,7 +3,7 @@ resource "random_id" "log_analytics_workspace_name_suffix" {
 }
 
 resource "azurerm_log_analytics_workspace" "test" {
-  location            = var.log_analytics_workspace_location
+  location = var.log_analytics_workspace_location
   # The WorkSpace name has to be unique across the whole of azure;
   # not just the current subscription/tenant.
   name                = "${var.log_analytics_workspace_name}-${random_id.log_analytics_workspace_name_suffix.dec}"
@@ -29,7 +29,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   name                = var.cluster_name
   resource_group_name = var.resource_group_name
   dns_prefix          = var.dns_prefix
-  tags                = {
+  tags = {
     Environment = "Development"
   }
 

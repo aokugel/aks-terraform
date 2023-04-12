@@ -14,7 +14,7 @@ variable "aks_service_principal_client_secret" {
 
 variable "storage_account_name" {
   description = "The storage account used to provision the blob storage"
-  default = "djangostoracc123456"
+  default     = "djangostoracc123456"
 }
 
 variable "resource_group_name" {
@@ -36,7 +36,7 @@ variable "log_analytics_workspace_location" {
 }
 
 variable "log_analytics_workspace_name" {
-  default = "test2LogAnalyticsWorkspaceName"
+  default = "testLogAnalyticsWorkspaceName"
 }
 
 # Refer to https://azure.microsoft.com/pricing/details/monitor/ for Log Analytics pricing
