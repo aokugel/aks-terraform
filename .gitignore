@@ -36,4 +36,5 @@ terraform.rc
 azurek8s
 *.tfplan
 
-tls.*
+*.crt
+*.key

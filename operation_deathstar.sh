@@ -54,3 +54,10 @@ kubectl create secret tls django-unchained-k8s-com-tls --key ${KEY_FILE} --cert 
 
 xdg-open https://django-unchained-k8s.com
 
+
+# HOST='k8s.anthonykugel.com'
+# KEY_FILE='k8s-tls.key'
+# CERT_FILE='k8s-tls.crt'
+# SECRET_NAME='k8s-anthonykugel-com-tls'
+# openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ${KEY_FILE} -out ${CERT_FILE} -subj "/CN=${HOST}/O=${HOST}" -addext "subjectAltName = DNS:${HOST}"
+# kubectl create secret tls ${k8s-anthonykugel-com-tls} --key ${KEY_FILE} --cert ${CERT_FILE}
